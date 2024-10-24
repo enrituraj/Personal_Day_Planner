@@ -1,0 +1,63 @@
+
+<div class="max-w-md mx-auto mt-10">
+  <h1 class="text-2xl font-semibold mb-6 text-center">Register</h1>
+
+  <% if (typeof errors != 'undefined' && errors.length > 0) { %>
+    <ul class="bg-red-100 p-4 rounded-md mb-6">
+      <% errors.forEach(function(error) { %>
+        <li class="text-red-600"><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/users/register" method="POST" class="space-y-4">
+    <div>
+      <input
+        type="text"
+        name="name"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+        placeholder="Full Name"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="email"
+        name="email"
+        value="<%= typeof email != 'undefined' ? email : '' %>"
+        placeholder="Email Address"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="password"
+        name="password2"
+        placeholder="Confirm Password"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-blue-500 text-white p-2 rounded-md"
+    >
+      Register
+    </button>
+  </form>
+
+  <p class="text-center mt-6">
+    Already have an account? <a href="/users/login" class="text-blue-500">Login</a>
+  </p>
+</div>

@@ -1,0 +1,47 @@
+
+
+<div class="max-w-md mx-auto mt-10">
+  <h1 class="text-2xl font-semibold mb-6 text-center">Login</h1>
+  
+  <% if (typeof error !== 'undefined' && error.length > 0) { %>
+    <div class="bg-red-100 p-4 rounded-md mb-6">
+      <p class="text-red-600"><%= error %></p>
+    </div>
+  <% } %>
+  <% if (success_msg && success_msg.length > 0) { %>
+    <div class="bg-green-100 p-4 rounded-md mb-6">
+      <p class="text-green-600"><%= success_msg %></p>
+    </div>
+  <% } %>
+
+  <form action="/users/login" method="POST" class="space-y-4">
+    <div>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        class="w-full p-2 border border-gray-300 rounded"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-blue-500 text-white p-2 rounded-md"
+    >
+      Login
+    </button>
+  </form>
+
+  <p class="text-center mt-6">
+    Don't have an account? <a href="/users/register" class="text-blue-500">Register</a>
+  </p>
+</div>

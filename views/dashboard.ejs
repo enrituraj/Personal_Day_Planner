@@ -1,0 +1,48 @@
+
+<div class="flex justify-between mt-8">
+  <!-- Calendar -->
+  <div class="w-1/2">
+    <h2 class="text-xl font-semibold mb-4">Select a Date</h2>
+    <input type="date" id="calendar" value="<%= currentDate %>" class="w-full p-2 border border-gray-300">
+  </div>
+
+  <!-- Tasks -->
+  <div class="w-1/2">
+    <h2 class="text-xl font-semibold mb-4">Tasks for <%= currentDate %></h2>
+
+    <ul class="list-disc list-inside mb-4">
+      <% if (tasks.length > 0) { %>
+        <% tasks.forEach(task => { %>
+          <li>
+            <strong><%= task.title %></strong>: <%= task.description %>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <p>No tasks for this day</p>
+
+
+        
+      <% } %>
+    </ul>
+
+    <!-- Add Task Form -->
+    <h3 class="text-lg font-semibold mb-2">Add a Task</h3>
+    <form action="/dashboard/task" method="POST" class="mb-4">
+      <input type="hidden" name="date" value="<%= currentDate %>">
+      <div class="mb-2">
+        <input type="text" name="title" placeholder="Task Title" class="w-full p-2 border border-gray-300" required>
+      </div>
+      <div class="mb-2">
+        <textarea name="description" placeholder="Task Description" class="w-full p-2 border border-gray-300" required></textarea>
+      </div>
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded">Add Task</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('calendar').addEventListener('change', function() {
+    const selectedDate = this.value;
+    window.location.href = `/dashboard?date=${selectedDate}`;
+  });
+</script>
