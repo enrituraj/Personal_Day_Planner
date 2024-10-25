@@ -7,16 +7,30 @@
     border-radius: 0.5rem; /* Rounded corners */
     padding: 1rem; /* Inner padding */
   }
+  .flatpickr-day{
+    border-radius: 4px;
+  }
+  .flatpickr-day.selected{
+    background-color: red;
+    border-radius: 8px;
+  }
+  .flatpickr-day.today{
+    background-color: red;
+    border-radius: 8px;
+  }
 </style>
-<div class="flex justify-between mt-8">
-  <!-- Calendar -->
-  <div class="w-1/2 p-5">
+<div class="flex flex-col md:flex-row">
+  <div class="flex-1 p-4 m-2 rounded shadow">
+      <!-- Calendar -->
+  <div class="p-5">
     <h2 class="text-xl font-semibold mb-4">Select a Date</h2>
     <div id="calendar_view"></div>
   </div>
 
-  <!-- Tasks -->
-  <div class="w-1/2">
+  </div>
+  <div class="flex-1 p-4 m-2 rounded shadow">
+      <!-- Tasks -->
+  <div class="">
     <h2 class="text-xl font-semibold mb-4">Tasks for <%= currentDate %></h2>
 
     <ul class="list-disc list-inside mb-4">
@@ -47,7 +61,9 @@
       <button type="submit" class="bg-blue-500 text-white p-2 rounded">Add Task</button>
     </form>
   </div>
+  </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
