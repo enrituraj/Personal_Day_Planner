@@ -1,13 +1,36 @@
-
-<div class="flex justify-between mt-8">
-  <!-- Calendar -->
-  <div class="w-1/2">
+<%- include('partials/navbar.ejs')%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+  .flatpickr-calendar {
+    background-color: #f9fafb; /* Light background */
+    border: 1px solid #d1d5db; /* Gray border */
+    border-radius: 0.5rem; /* Rounded corners */
+    padding: 1rem; /* Inner padding */
+  }
+  .flatpickr-day{
+    border-radius: 4px;
+  }
+  .flatpickr-day.selected{
+    background-color: red;
+    border-radius: 8px;
+  }
+  .flatpickr-day.today{
+    background-color: red;
+    border-radius: 8px;
+  }
+</style>
+<div class="flex flex-col md:flex-row">
+  <div class="flex-1 p-4 m-2 rounded shadow">
+      <!-- Calendar -->
+  <div class="p-5">
     <h2 class="text-xl font-semibold mb-4">Select a Date</h2>
-    <input type="date" id="calendar" value="<%= currentDate %>" class="w-full p-2 border border-gray-300">
+    <div id="calendar_view"></div>
   </div>
 
-  <!-- Tasks -->
-  <div class="w-1/2">
+  </div>
+  <div class="flex-1 p-4 m-2 rounded shadow">
+      <!-- Tasks -->
+  <div class="">
     <h2 class="text-xl font-semibold mb-4">Tasks for <%= currentDate %></h2>
 
     <ul class="list-disc list-inside mb-4">
@@ -38,11 +61,29 @@
       <button type="submit" class="bg-blue-500 text-white p-2 rounded">Add Task</button>
     </form>
   </div>
+  </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-  document.getElementById('calendar').addEventListener('change', function() {
-    const selectedDate = this.value;
-    window.location.href = `/dashboard?date=${selectedDate}`;
+  document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#calendar_view", {
+      inline: true,
+      onReady: function(selectedDates, dateStr, instance) {
+        // Custom Tailwind classes to Flatpickr elements
+        instance.calendarContainer.classList.add("bg-gray-100", "p-4", "rounded-lg", "shadow-md");
+        document.querySelectorAll(".flatpickr-day").forEach(day => {
+          day.classList.add("hover:bg-blue-100", "text-gray-800", "rounded-md");
+        });
+      },
+      defaultDate: "<%= currentDate %>", // Set the default date
+      onChange: function(selectedDates, dateStr) {
+        // console.log("Selected date: ", dateStr);
+        
+        const selectedDate = dateStr;
+        window.location.href = `/dashboard?date=${selectedDate}`;
+        },
+    });
   });
 </script>
