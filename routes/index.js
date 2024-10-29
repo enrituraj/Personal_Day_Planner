@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const Task = require('../models/Task');
-
+const {countTasks} = require('./../config/countTasks')
 // homepage route
 router.get('/',(req,res) => {
   res.render('index');
@@ -14,11 +14,14 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
 
   // Fetch tasks for the selected date
   const tasks = await Task.findOne({ user: req.user.id, date: currentDate });
+  const taskCounts = await countTasks(req.user.id);
 
   res.render('dashboard', {
     user: req.user,
     currentDate,
-    tasks: tasks ? tasks.tasks : []
+    tasks: tasks ? tasks.tasks : [],
+    completed: taskCounts.completed,
+    notCompleted: taskCounts.notCompleted,
   });
 });
 

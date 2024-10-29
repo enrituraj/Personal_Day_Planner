@@ -12,6 +12,11 @@ const TaskSchema = new mongoose.Schema({
   tasks: [{
     title: String,
     description: String,
+    status: {
+      type: String,
+      enum: ['PENDING', 'NOT_COMPLETED', 'COMPLETED'],
+      default: 'PENDING'
+    },
   }]
 });
 
